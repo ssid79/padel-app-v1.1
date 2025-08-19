@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Calendario settimana</h1>
+    <table border="1">
+        <tr>
+            <th>Giorno</th>
+            <th>Squadra 1</th>
+            <th>Squadra 2</th>
+            <th>Punteggio</th>
+        </tr>
+        {% for partita in calendario %}
+        <tr class="{% if partita == partita_imminente %}partita-imminente{% elif partita.punteggio %}partita-giocata{% else %}partita-da-giocare{% endif %}">
+            <td>{{ partita.giorno }}</td>
+            <td>{{ partita.squadra1 }}</td>
+            <td>{{ partita.squadra2 }}</td>
+            <td>
+                {% if partita.punteggio %}
+                    {{ partita.punteggio }}
+                {% else %}
+                    <form action="{{ url_for('inserisci_punteggio') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="squadra1" value="{{ partita.squadra1 }}">
+                        <input type="hidden" name="squadra2" value="{{ partita.squadra2 }}">
+                        <input type="text" name="punteggio" placeholder="Es. 6-3" required>
+                        <input type="submit" value="Inserisci">
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

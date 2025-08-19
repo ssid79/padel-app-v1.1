@@ -1,0 +1,10 @@
+.partita-giocata {
+    background-color: #d4edda;
+}
+.partita-da-giocare {
+    background-color: #f8d7da;
+}
+.partita-imminente {
+    background-color: #fff3cd;
+    font-weight: bold;
+}
